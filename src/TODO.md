@@ -1,4 +1,4 @@
-# WordWise – Smart Vocabulary Trainer: TODO
+# WordWise ï¿½ Smart Vocabulary Trainer: TODO
 
 ## Project Setup
 - [x] Decide on data format (CSV)
@@ -6,11 +6,11 @@
 - [ ] Create initial `CMakeLists.txt` for build system
 
 ## Core Classes & Modules
-- [ ] Implement `WordEntry` struct (represents a vocabulary word)
-- [ ] Implement `WordBank` class
-    - [ ] Load/save words from/to CSV
-    - [ ] Add, update, remove words
-    - [ ] Fallback to builtins if user bank is empty
+- [x] Implement `WordEntry` struct (represents a vocabulary word)
+- [x] Implement `WordBank` class
+    - [x] Load/save words from/to CSV
+    - [x] Add, update, remove words
+    - [x] Fallback to builtins if user bank is empty
 - [ ] Implement `QuizGenerator` class
     - [ ] Generate multiple choice questions
     - [ ] Select words for quiz (initial: random, later: neural net)
@@ -52,8 +52,8 @@
 
 ---
 
-**Tip:**  
-Check off items as you go!  
+**Tip:**
+Check off items as you go!
 Feel free to add new ideas and features below.
 
 ## Notes / Ideas
@@ -65,10 +65,10 @@ Feel free to add new ideas and features below.
 
 ## Main Ideation
 
-Project: WordWise – Smart Vocabulary Trainer
+Project: WordWise ï¿½ Smart Vocabulary Trainer
 
-The goal of this project is to design and implement a parallelized 
-language-learning assistant that helps users store, organize, and practice 
+The goal of this project is to design and implement a parallelized
+language-learning assistant that helps users store, organize, and practice
 foreign vocabulary.
 
 The system will apply parallel programming techniques to improve the performance of
@@ -76,16 +76,16 @@ The system will apply parallel programming techniques to improve the performance
 - quiz generation
 - real-time feedback
 
-demonstrating the power of parallelism in enhancing user experience for real-world, interactive applications. 
+demonstrating the power of parallelism in enhancing user experience for real-world, interactive applications.
 
-Many students and young adults are actively learning new languages, but 
-most apps focus on fixed word lists rather than allowing users to input, 
+Many students and young adults are actively learning new languages, but
+most apps focus on fixed word lists rather than allowing users to input,
 review, and memorize their own vocabulary.
 
-Few platforms offer the flexibility to build a personalized word bank and revisit those words 
-through customized exercises. This project addresses that gap by 
-creating an app that lets users actively manage their vocabulary and 
-review it through tailored quizzes. If a user hasn’t added any words yet, 
-the app provides a built-in vocabulary section to ensure continuous 
-learning. Parallel computing techniques are used to maintain high 
+Few platforms offer the flexibility to build a personalized word bank and revisit those words
+through customized exercises. This project addresses that gap by
+creating an app that lets users actively manage their vocabulary and
+review it through tailored quizzes. If a user hasnï¿½t added any words yet,
+the app provides a built-in vocabulary section to ensure continuous
+learning. Parallel computing techniques are used to maintain high
 responsiveness and handle growing word sets efficiently.
