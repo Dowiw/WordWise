@@ -128,9 +128,30 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="csv_utils.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="word_bank.cpp" />
+    <ClCompile Include="quiz_generator.cpp" />
+    <ClCompile Include="stats_tracker.cpp" />
+    <ClCompile Include="neural_network.cpp" />
+    <ClCompile Include="csv_utils.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="word_entry.h" />
+    <ClInclude Include="word_bank.h" />
+    <ClInclude Include="quiz_generator.h" />
+    <ClInclude Include="stats_tracker.h" />
+    <ClInclude Include="neural_network.h" />
+    <ClInclude Include="csv_utils.h" />
+  </ItemGroup>
+  <!-- Enable OpenMP for all configurations -->
+  <PropertyGroup>
+    <OpenMPSupport>true</OpenMPSupport>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <OpenMPSupport>true</OpenMPSupport>
+    </ClCompile>
+  </ItemDefinitionGroup>
   <ItemGroup>
     <None Include="TODO.md" />
   </ItemGroup>
