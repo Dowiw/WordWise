@@ -57,7 +57,5 @@ Follow the on-screen menu to:
 - [ ] Scale to more words for exercises
 - [ ] Add option to specify word difficulty
 
----
-
 > - Made with C++, KB, Fatih, Ferds, Ezra, Shukrulloh
 > - Happy learning! 🇩🇪
