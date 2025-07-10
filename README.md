@@ -54,8 +54,10 @@ Follow the on-screen menu to:
 - If you run into any issues, please open an issue or suggest improvements!
 - [ ] Might implement sentence generation using a neural network (doubt)
 - [ ] Support for multiple languages
+- [ ] Scale to more words for exercises
+- [ ] Add option to specify word difficulty
 
 ---
 
-Made with C++, KB, Fatih, Ferds, Ezra, Shukrulloh
-Happy learning! 🇩🇪
+> - Made with C++, KB, Fatih, Ferds, Ezra, Shukrulloh
+> - Happy learning! 🇩🇪
