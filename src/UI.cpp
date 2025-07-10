@@ -111,14 +111,16 @@ void learnSuggestedWords() {
 							runLoadingAnimation(1);
 
 							// count words by type
-							map<WordType, int> typeCounts; // create map for type and int for number of times used
+							map<WordType, int> typeCounts;
 							for (int idx : selected) {
-								typeCounts[words[idx].type]++; // increment matching type enum
+								typeCounts[words[idx].type]++;
+								// Mark as practiced and correct (simulate a correct practice)
+								wordDB.updateWordStats(words[idx].german, true);
 							}
 
 							// update progress
 							for (const auto& pair : typeCounts)
-								wordDB.incrementWordsLearned(pair.second, pair.first); // get the number & enum
+								wordDB.incrementWordsLearned(pair.second, pair.first);
 
 							stopLoadingAnimation();
 							cout << "Marked " << selected.size() << " words as learned.\n";

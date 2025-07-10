@@ -4,7 +4,9 @@
 
 #include <chrono>
 #include <iostream>
-extern "C" { // ensure none of the function are modified for the love of .. by linking as C
+#include <iomanip> // for table formatting
+
+extern "C" { // done for compiling as C headers pls, compiler silence
 #include <pthread.h>
 #include <unistd.h>
 }
@@ -77,16 +79,23 @@ int main() {
 						reviewProgress();
 						break;
 					case 5:
-						cout << "Saving progress and exiting program. Auf Wiedersehen!\n";
-						// Print performance analysis before exit
-						cout << "\n=== Performance Analysis ===\n";
-						cout << "Quiz Generation (Parallel): " << parallelQuizGenMs << " ms\n";
-						cout << "Quiz Generation (Single-threaded): " << singleQuizGenMs << " ms\n";
-						if (singleQuizGenMs > 0.0) {
-							double speedup = singleQuizGenMs / parallelQuizGenMs;
-							cout << "Speedup: " << speedup << "x\n";
-						}
-						return 0;
+					cout << "Saving progress and exiting program. Auf Wiedersehen!\n";
+					// print performance analysis summary table before exit
+					cout << "\n+-----------------------+-----------------------+-------------------+----------+\n";
+					cout << "|      Operation       | Single-threaded (ms)  | Parallel (ms)     | Speedup  |\n";
+					cout << "+-----------------------+-----------------------+-------------------+----------+\n";
+					cout << "| Quiz Generation      | "
+						 << setw(21) << left << singleQuizGenMs << "| "
+						 << setw(16) << left << parallelQuizGenMs << "| ";
+					if (parallelQuizGenMs > 0.0) {
+						double speedup = singleQuizGenMs / parallelQuizGenMs;
+						cout << setw(8) << left << fixed << setprecision(2) << speedup << "x";
+					} else {
+						cout << setw(8) << left << "N/A";
+					}
+					cout << "   |\n";
+					cout << "+-----------------------+-----------------------+-------------------+----------+\n";
+					return 0;
 					default:
 						cout << "Invalid choice. Please try again.\n";
 						usleep(1000000); // 1 second
