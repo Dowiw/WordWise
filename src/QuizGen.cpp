@@ -10,7 +10,7 @@
 using namespace std;
 
 // mutex for thread-safe console output
-pthread_mutex_t cout_mutex = PTHREAD_MUTEX_INITIALIZER;
+extern pthread_mutex_t cout_mutex;
 
 // quiz data definitions (global)
 FlashCardQuiz flashCardQuiz;

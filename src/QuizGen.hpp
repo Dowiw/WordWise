@@ -6,7 +6,7 @@
 using namespace std;
 
 struct FlashCardQuiz {
-	vector<Word> questions;
+	vector<Word> questions; // only questions for flash card as vector of word
 };
 
 struct MultipleChoiceQuiz {
@@ -14,7 +14,7 @@ struct MultipleChoiceQuiz {
 };
 
 struct TrueFalseQuiz {
-	vector<pair<Word, bool>> questions;
+	vector<pair<Word, bool>> questions; // question only pairing each word with boolean as coorectness
 };
 
 extern FlashCardQuiz flashCardQuiz;
