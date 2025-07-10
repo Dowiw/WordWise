@@ -2,6 +2,7 @@
 #include "Utils.hpp"
 #include "WordDatabase.hpp"
 
+#include <chrono>
 #include <iostream>
 extern "C" { // ensure none of the function are modified for the love of .. by linking as C
 #include <pthread.h>
@@ -9,8 +10,15 @@ extern "C" { // ensure none of the function are modified for the love of .. by l
 }
 using namespace std;
 
-// Global mutex for thread-safe console output
+// global mutex for thread-safe console output
 pthread_mutex_t cout_mutex = PTHREAD_MUTEX_INITIALIZER;
+
+// global variables to store timing results
+static double parallelQuizGenMs = 0.0;
+static double singleQuizGenMs = 0.0;
+
+// forward declaration for single-threaded quiz generation
+void generateAllQuizzesSingleThreaded();
 
 // Main function
 int main() {
@@ -18,8 +26,16 @@ int main() {
 		// seed random number generator (how? just ask)
 		srand(static_cast<unsigned int>(time(nullptr)));
 
-		// Generate all quizzes in parallel at startup
+		// performance analysis: Quiz Generation
+		auto start_parallel = chrono::high_resolution_clock::now();
 		generateAllQuizzesParallel();
+		auto end_parallel = chrono::high_resolution_clock::now();
+		parallelQuizGenMs = chrono::duration<double, milli>(end_parallel - start_parallel).count();
+
+		auto start_single = chrono::high_resolution_clock::now();
+		generateAllQuizzesSingleThreaded();
+		auto end_single = chrono::high_resolution_clock::now();
+		singleQuizGenMs = chrono::duration<double, milli>(end_single - start_single).count();
 
 		// Wait for user to press Enter before starting the main menu
 		cout << "\n[Main] Press Enter to start the German Language Learning Program..." << endl;
@@ -41,7 +57,7 @@ int main() {
 			if (!(cin >> choice)) {
 				cout << "Invalid input. Please enter a number.\n";
 				cin.clear();
-				cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+				cin.ignore(numeric_limits<streamsize>::max(), '\n');
 				usleep(1000000);
 				continue;
 			}
@@ -62,17 +78,25 @@ int main() {
 						break;
 					case 5:
 						cout << "Saving progress and exiting program. Auf Wiedersehen!\n";
+						// Print performance analysis before exit
+						cout << "\n=== Performance Analysis ===\n";
+						cout << "Quiz Generation (Parallel): " << parallelQuizGenMs << " ms\n";
+						cout << "Quiz Generation (Single-threaded): " << singleQuizGenMs << " ms\n";
+						if (singleQuizGenMs > 0.0) {
+							double speedup = singleQuizGenMs / parallelQuizGenMs;
+							cout << "Speedup: " << speedup << "x\n";
+						}
 						return 0;
 					default:
 						cout << "Invalid choice. Please try again.\n";
 						usleep(1000000); // 1 second
 				}
-			} catch (const std::exception& e) {
+			} catch (const exception& e) {
 				cout << "[Error] Exception in menu action: " << e.what() << endl;
 				usleep(2000000);
 			}
 		}
-	} catch (const std::exception& e) {
+	} catch (const exception& e) {
 		cout << "[Fatal Error] Unhandled exception: " << e.what() << endl;
 		return 1;
 	}

@@ -25,3 +25,6 @@ void* generateFlashCardQuiz(void* arg);
 void* generateMultipleChoiceQuiz(void* arg);
 void* generateTrueFalseQuiz(void* arg);
 void generateAllQuizzesParallel();
+
+// function for testing
+void generateAllQuizzesSingleThreaded();

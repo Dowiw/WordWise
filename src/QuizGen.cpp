@@ -104,3 +104,10 @@ void generateAllQuizzesParallel() {
 
 	cout << "All quizzes generated in parallel!\n";
 }
+
+void generateAllQuizzesSingleThreaded() {
+	vector<Word> allWords = wordDB.getAllWords();
+	generateFlashCardQuiz(&allWords);
+	generateMultipleChoiceQuiz(&allWords);
+	generateTrueFalseQuiz(&allWords);
+}
