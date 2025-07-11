@@ -42,7 +42,7 @@ string WordDatabase::typeToString(WordType type) {
 }
 
 void WordDatabase::initializeDefaultWords() {
-	// Over 400 A1 level German words with types
+	// word structure as follows: german, english, wordtype, difficulty, timesPractice, timesCorrect
 	words.clear();
 	vector<Word> defaultWords = {
 		// Basic phrases

@@ -1,7 +1,7 @@
 # WordWise
 
-A modern, parallelized German vocabulary learning app for the terminal.
-
+A modern, parallelized & scalable German vocabulary learning app for the terminal.
+- Made to fulfill the team's Parallel Programming course in Summer 2025
 
 ## Features
 - Flash card, multiple choice, and true/false quizzes (all generated in parallel for speed)
@@ -52,10 +52,14 @@ Follow the on-screen menu to:
 ## Notes
 - Console output is thread-safe, so you won't see garbled messages even when saving or generating quizzes in parallel.
 - If you run into any issues, please open an issue or suggest improvements!
+
+## Future Ideas
 - [ ] Might implement sentence generation using a neural network (doubt)
 - [ ] Support for multiple languages
+- [ ] Scale to more words for exercises
+- [ ] Add option to specify word difficulty
+- [ ] Turn the program into an app (I don't know how but let's see)
 
----
-
-Made with C++, KB, Fatih, Ferds, Ezra, Shukrulloh
-Happy learning! 🇩🇪
+> - Made with C++
+> - By KB, Fatih, Ferds, Ezra, Shukrulloh
+> - Happy learning! 🇩🇪
