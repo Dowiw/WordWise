@@ -31,13 +31,13 @@ void* generateFlashCardQuiz(void* arg) {
 	pthread_mutex_lock(&cout_mutex);
 	cout << "[Thread] Flash Card quiz generated!\n";
 	pthread_mutex_unlock(&cout_mutex);
-	return nullptr;
+	return (nullptr);
 }
 
 void* generateMultipleChoiceQuiz(void* arg) {
 	auto* allWords = static_cast<vector<Word>*>(arg);
 
-	multipleChoiceQuiz.questions.clear();
+	multipleChoiceQuiz.questions.clear(); // clear previous if there is
 
 	vector<Word> shuffled = *allWords;
 	shuffle(shuffled.begin(), shuffled.end(), default_random_engine(random_device{}()));
@@ -107,7 +107,9 @@ void generateAllQuizzesParallel() {
 
 void generateAllQuizzesSingleThreaded() {
 	vector<Word> allWords = wordDB.getAllWords();
+	cout << "\nStarting single threading for comparison... \n";
 	generateFlashCardQuiz(&allWords);
 	generateMultipleChoiceQuiz(&allWords);
 	generateTrueFalseQuiz(&allWords);
+	cout << "Single threading done!\n";
 }

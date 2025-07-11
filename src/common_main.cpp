@@ -1,16 +1,4 @@
-#include "UI.hpp"
-#include "Utils.hpp"
-#include "WordDatabase.hpp"
-
-#include <chrono>
-#include <iostream>
-#include <iomanip> // for table formatting
-
-extern "C" { // done for compiling as C headers pls, compiler silence
-#include <pthread.h>
-#include <unistd.h>
-}
-using namespace std;
+#include "common_main.hpp"
 
 // global mutex for thread-safe console output
 pthread_mutex_t cout_mutex = PTHREAD_MUTEX_INITIALIZER;
@@ -22,7 +10,7 @@ static double singleQuizGenMs = 0.0;
 // forward declaration for single-threaded quiz generation
 void generateAllQuizzesSingleThreaded();
 
-// Main function
+// main function
 int main() {
 	try {
 		// seed random number generator (how? just ask)
@@ -41,7 +29,7 @@ int main() {
 
 		// Wait for user to press Enter before starting the main menu
 		cout << "\n[Main] Press Enter to start the German Language Learning Program..." << endl;
-		cin.ignore();
+		cin.ignore(numeric_limits<streamsize>::max(), '\n'); // ignore value
 		cin.get();
 
 		while (true) {
@@ -80,6 +68,7 @@ int main() {
 						break;
 					case 5:
 					cout << "Saving progress and exiting program. Auf Wiedersehen!\n";
+
 					// print performance analysis summary table before exit
 					cout << "\n+-----------------------+-----------------------+-------------------+----------+\n";
 					cout << "|      Operation       | Single-threaded (ms)  | Parallel (ms)     | Speedup  |\n";
@@ -89,6 +78,7 @@ int main() {
 						 << setw(16) << left << parallelQuizGenMs << "| ";
 					if (parallelQuizGenMs > 0.0) {
 						double speedup = singleQuizGenMs / parallelQuizGenMs;
+						// set the output to only have the width to have 8 values max and .00 floating values
 						cout << setw(8) << left << fixed << setprecision(2) << speedup << "x";
 					} else {
 						cout << setw(8) << left << "N/A";
