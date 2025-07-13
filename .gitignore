@@ -1,3 +1,7 @@
+# Ignore dev-defined files
+.vscode/
+/logs/
+
 # Ignore build artifacts and user data
 /build/
 *.o
