@@ -85,7 +85,8 @@ int main() {
 					}
 					cout << "   |\n";
 					cout << "+-----------------------+-----------------------+-------------------+----------+\n";
-					return 0;
+					cout << "Results may vary depending on the amount of words in the database.\n";
+					return (0); // master exit
 					default:
 						cout << "Invalid choice. Please try again.\n";
 						usleep(1000000); // 1 second
@@ -99,5 +100,5 @@ int main() {
 		cout << "[Fatal Error] Unhandled exception: " << e.what() << endl;
 		return 1;
 	}
-	return 0;
+	return (0); // master exit 2
 }

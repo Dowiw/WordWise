@@ -330,7 +330,37 @@ void WordDatabase::incrementWordsLearned(int count, WordType type) {
 
 UserProgress WordDatabase::getProgress() const {
 	lock_guard<mutex> guard(mtx);
-	return progress;
+	UserProgress dynamicProgress = progress; // update to current word progres
+
+	// dynamically count words learned (timesCorrect > 0)
+	int learnedCount = 0;
+	map<WordType, int> typeCounts;
+
+	// count each times a word & tupe is correct in the words vector
+	for (const auto& word : words) {
+		if (word.timesCorrect > 0) {
+			learnedCount++;
+			typeCounts[word.type]++;
+		}
+	}
+
+	// do the same for user words
+	for (const auto& word : userAddedWords) {
+		if (word.timesCorrect > 0) {
+			learnedCount++;
+			typeCounts[word.type]++;
+		}
+	}
+
+	// assign the value to the copy
+	dynamicProgress.totalWordsLearned = learnedCount;
+
+	// assign each pair of progress to the typeProgress map
+	for (auto& pair : dynamicProgress.typeProgress) {
+		pair.second = typeCounts[pair.first];
+	}
+
+	return dynamicProgress;
 }
 
 void WordDatabase::saveProgress() const {
