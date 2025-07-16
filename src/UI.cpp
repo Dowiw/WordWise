@@ -59,7 +59,7 @@ void learnSuggestedWords() {
 				if (!(cin >> choice)) {
 					cout << "Invalid input. Please enter a number.\n";
 					cin.clear();
-					cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+					cin.ignore(numeric_limits<streamsize>::max(), '\n');
 					usleep(1000000);
 					continue;
 				}
@@ -126,7 +126,7 @@ void learnSuggestedWords() {
 						usleep(1000000); // 1 second
 				}
 			}
-		} catch (const std::exception& e) {
+		} catch (const exception& e) {
 			cout << "[Error] Exception in learnSuggestedWords: " << e.what() << endl;
 			usleep(2000000);
 		}
@@ -149,7 +149,7 @@ void manageMyWords() {
 			if (!(cin >> choice)) {
 				cout << "Invalid input. Please enter a number.\n";
 				cin.clear();
-				cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+				cin.ignore(numeric_limits<streamsize>::max(), '\n');
 				usleep(1000000);
 				continue;
 			}
@@ -336,7 +336,7 @@ void manageMyWords() {
 					cout << "Invalid choice. Please try again.\n";
 					usleep(1000000); // 1 second
 			}
-		} catch (const std::exception& e) {
+		} catch (const exception& e) {
 			cout << "[Error] Exception in manageMyWords: " << e.what() << endl;
 			usleep(2000000);
 		}
@@ -358,7 +358,7 @@ void practiceExercises() {
 			if (!(cin >> choice)) {
 				cout << "Invalid input. Please enter a number.\n";
 				cin.clear();
-				cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+				cin.ignore(numeric_limits<streamsize>::max(), '\n');
 				usleep(1000000);
 				continue;
 			}
@@ -373,7 +373,7 @@ void practiceExercises() {
 				case 1: {
 					int score = 0;
 					int total = flashCardQuiz.questions.size();
-					std::vector<std::pair<std::string, bool>> wordResults;
+					vector<pair<string, bool>> wordResults;
 					for (int i = 0; i < total; ++i) {
 						clearScreen();
 						cout << "Flash Card " << i + 1 << " of " << total << "\n\n";
@@ -409,7 +409,7 @@ void practiceExercises() {
 				case 2: {
 					int score = 0;
 					int total = multipleChoiceQuiz.questions.size();
-					std::vector<std::pair<std::string, bool>> wordResults;
+					vector<pair<string, bool>> wordResults;
 					for (int i = 0; i < total; ++i) {
 						clearScreen();
 						cout << "Multiple Choice " << i + 1 << " of " << total << "\n\n";
@@ -445,19 +445,24 @@ void practiceExercises() {
 				case 3: {
 					int score = 0;
 					int total = trueFalseQuiz.questions.size();
-					std::vector<std::pair<std::string, bool>> wordResults;
+
+					vector<pair<string, bool>> wordResults;
 					for (int i = 0; i < total; ++i) {
 						clearScreen();
 						cout << "True/False " << i + 1 << " of " << total << "\n\n";
+
 						cout << "German: " << trueFalseQuiz.questions[i].first.german << "\n";
 						cout << "English: " << trueFalseQuiz.questions[i].first.english << "\n";
+
 						bool correctAnswer = trueFalseQuiz.questions[i].second;
 						bool userAnswer;
+
 						cout << "Is this translation correct? (1 for True, 0 for False): ";
 						int input;
 						cin >> input;
 						userAnswer = (input == 1);
 						bool correct = (userAnswer == correctAnswer);
+
 						wordResults.push_back({trueFalseQuiz.questions[i].first.german, correct});
 						if (correct) {
 							score++;
@@ -469,6 +474,7 @@ void practiceExercises() {
 						cin.ignore();
 						cin.get();
 					}
+
 					cout << "\nSaving your results in parallel...\n";
 					saveWordsInParallel(wordResults);
 					cout << "\nExercise completed! Your score: " << score << "/" << total << "\n";
@@ -478,13 +484,14 @@ void practiceExercises() {
 					cin.get();
 					break;
 				}
+
 				case 4:
 					return;
 				default:
 					cout << "Invalid choice. Please try again.\n";
 					usleep(1000000);
 			}
-		} catch (const std::exception& e) {
+		} catch (const exception& e) {
 			cout << "[Error] Exception in practiceExercises: " << e.what() << endl;
 			usleep(2000000);
 		}
@@ -552,7 +559,7 @@ void reviewProgress() {
 			if (!(cin >> choice)) {
 				cout << "Invalid input. Please enter a number.\n";
 				cin.clear();
-				cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+				cin.ignore(numeric_limits<streamsize>::max(), '\n');
 				usleep(1000000);
 				continue;
 			}
@@ -604,11 +611,9 @@ void reviewProgress() {
 					cout << "Invalid choice. Please try again.\n";
 					usleep(1000000); // 1 second
 			}
-		} catch (const std::exception& e) {
+		} catch (const exception& e) {
 			cout << "[Error] Exception in reviewProgress: " << e.what() << endl;
 			usleep(2000000);
 		}
 	}
 }
-
-// Quiz data and generation functions are now in Utils.cpp/Utils.hpp

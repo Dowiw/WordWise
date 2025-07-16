@@ -65,15 +65,24 @@ void* generateMultipleChoiceQuiz(void* arg) {
 void* generateTrueFalseQuiz(void* arg) {
 	auto* allWords = static_cast<vector<Word>*>(arg);
 
-	trueFalseQuiz.questions.clear();
-	vector<Word> shuffled = *allWords;
+	trueFalseQuiz.questions.clear(); // clear previous questions
+	vector<Word> shuffled = *allWords; // copy
 
 	shuffle(shuffled.begin(), shuffled.end(), default_random_engine(random_device{}()));
 	int total = min(10, (int)shuffled.size());
 
 	for (int i = 0; i < total; ++i) {
 		bool correct = rand() % 2;
-		trueFalseQuiz.questions.push_back({shuffled[i], correct});
+		Word questionedWord = shuffled[i];
+		if (!correct) {
+			int idx;
+			do {
+				// ensure that english word selected will not match the question
+				idx = rand() % shuffled.size();
+			} while (shuffled[idx].english == questionedWord.english);
+			questionedWord.english = shuffled[idx].english;
+		}
+		trueFalseQuiz.questions.push_back({questionedWord, correct});
 	}
 
 	pthread_mutex_lock(&cout_mutex);
