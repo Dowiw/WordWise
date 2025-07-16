@@ -1,22 +1,13 @@
 // crazy *ss cpp file
-#include "UI.hpp"
-#include "Utils.hpp"
-#include "QuizGen.hpp"
-#include "WordDatabase.hpp"
+#include "UI.hpp" // mutex, map, string, vector, quiz gen
+#include "Utils.hpp" // pthread
+#include "WordDatabase.hpp" // mutex
 
 #include <iostream>
-#include <string>
-#include <vector>
-#include <map>
 #include <algorithm>
-#include <random>
 #include <chrono>
-#include <pthread.h>
 #include <unistd.h>
 #include <sstream>
-#include <limits>
-#include <future>
-#include <thread>
 using namespace std;
 
 void displayWordList(const vector<Word>& words, int start, int count) {

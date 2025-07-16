@@ -4,7 +4,7 @@
 #include <vector>
 using namespace std;
 
-// Word types in enumeration (int)
+// word types in enumeration (int): Noun, Verb, Adjective, Phrase, Other
 enum class WordType {
 	NOUN,
 	VERB,
@@ -23,7 +23,7 @@ struct Word {
 	int timesCorrect;
 };
 
-// basic user structure progress
+// basic user structure progress: totalLearned, totalExercise, progressForType of quiz
 struct UserProgress {
 	int totalWordsLearned;
 	int totalExercisesCompleted;

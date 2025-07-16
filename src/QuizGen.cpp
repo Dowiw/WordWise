@@ -1,12 +1,11 @@
-#include "QuizGen.hpp"
-#include "WordDatabase.hpp"
+#include "QuizGen.hpp" // map, string, vector, functions and structures
+#include "WordDatabase.hpp" // for wordDB
 
 #include <algorithm>
 #include <random>
 #include <iostream>
 #include <pthread.h>
 #include <unistd.h>
-#include <cstdlib>
 using namespace std;
 
 // mutex for thread-safe console output
@@ -31,7 +30,7 @@ void* generateFlashCardQuiz(void* arg) {
 	pthread_mutex_lock(&cout_mutex);
 	cout << "[Thread] Flash Card quiz generated!\n";
 	pthread_mutex_unlock(&cout_mutex);
-	return (nullptr);
+	return nullptr;
 }
 
 void* generateMultipleChoiceQuiz(void* arg) {

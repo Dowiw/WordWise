@@ -1,9 +1,5 @@
-// WordDatabase.hpp
 #pragma once
-#include "WordTypes.hpp"
-#include <string>
-#include <vector>
-#include <map>
+#include "WordTypes.hpp" // map, string, vector
 #include <mutex>
 using namespace std;
 
@@ -36,9 +32,9 @@ public:
 	string typeToString(WordType type);
 
 	/*
-	main function to load words into database vector words
-	also loads initializes progress structure to zero
-	***see private***
+	main function to load words into database vector<words> &
+	also initializes progress structure to zero
+	```see private variables```
 	*/
 	void initializeDefaultWords();
 

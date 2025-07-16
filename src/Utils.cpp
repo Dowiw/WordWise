@@ -1,4 +1,4 @@
-#include "Utils.hpp"
+#include "Utils.hpp" // map, string, vector, mutex, pthread
 #include <iostream>
 #include <unistd.h>
 #include <chrono>
@@ -18,7 +18,7 @@ void* loadingAnimationThreadFunc(void* arg) {
 	processingFlag = 1;
 	for (int i = 0; i < seconds * 2 && processingFlag; ++i) {
 		cout << "\rProcessing" << string(i % 4, '.') << flush;
-		usleep(500000); // 500 ms
+		usleep(500000); // 500 ms, might remove once final
 	}
 	if (processingFlag) {
 		cout << "\rDone!          " << endl;
@@ -43,7 +43,7 @@ void clearScreen() {
 #ifdef _WIN32 // if compiled through windows
 	system("cls");
 #else
-	system("clear"); // use shell command clear
+	system("clear"); // use unix command clear
 #endif
 }
 
@@ -56,7 +56,6 @@ void* saveWordThreadFunc(void* arg) {
 	pthread_mutex_unlock(&cout_mutex);
 
 	wordDB.updateWordStats(args->germanWord, args->wasCorrect); // the main update method
-	usleep(300000); // 0.3s for demo
 
 	auto end = chrono::high_resolution_clock::now();
 	double elapsed_ms = chrono::duration<double, milli>(end - start).count();

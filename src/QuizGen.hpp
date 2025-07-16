@@ -1,9 +1,5 @@
 #pragma once
-#include "WordTypes.hpp"
-
-#include <vector>
-#include <string>
-using namespace std;
+#include "WordTypes.hpp" // map, string, vector
 
 struct FlashCardQuiz {
 	vector<Word> questions; // only questions for flash card as vector of word
@@ -17,10 +13,12 @@ struct TrueFalseQuiz {
 	vector<pair<Word, bool>> questions; // question only pairing each word with boolean as coorectness
 };
 
+// global quiz variables
 extern FlashCardQuiz flashCardQuiz;
 extern MultipleChoiceQuiz multipleChoiceQuiz;
 extern TrueFalseQuiz trueFalseQuiz;
 
+// function prototypes
 void* generateFlashCardQuiz(void* arg);
 void* generateMultipleChoiceQuiz(void* arg);
 void* generateTrueFalseQuiz(void* arg);

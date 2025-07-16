@@ -1,16 +1,14 @@
 #pragma once
 #include <pthread.h>
-#include <vector>
-#include <string>
-#include "WordDatabase.hpp"
+#include "WordDatabase.hpp" // map, string, vector, mutex
 
 struct SaveWordArgs {
-	std::string germanWord;
+	string germanWord;
 	bool wasCorrect;
 };
 
 void* saveWordThreadFunc(void* arg);
-void saveWordsInParallel(const std::vector<std::pair<std::string, bool>>& wordResults);
+void saveWordsInParallel(const vector<pair<string, bool>>& wordResults);
 
 void* loadingAnimationThreadFunc(void* arg);
 void* runLoadingAnimationThread(void* arg);

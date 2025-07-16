@@ -1,18 +1,14 @@
-#include "WordDatabase.hpp" // for class structure
-#include "WordTypes.hpp" // for word and wordtype
+#include "WordDatabase.hpp" // for class structure & word & wordtype, libs: mutex, map, string, vector
 
+// standard c++ headers only for this CPP file
 #include <fstream>
 #include <sstream>
 #include <iostream>
 #include <algorithm>
-#include <string>
-#include <vector>
-#include <map>
-#include <mutex>
 using namespace std;
 
-mutex mtx;
 WordDatabase wordDB;
+mutex mtx; // very important, makes threads wait when accessing function
 
 WordDatabase::WordDatabase() {
 	initializeDefaultWords();
@@ -44,6 +40,8 @@ string WordDatabase::typeToString(WordType type) {
 void WordDatabase::initializeDefaultWords() {
 	// word structure as follows: german, english, wordtype, difficulty, timesPractice, timesCorrect
 	words.clear();
+
+	// maybe i should use csv loading instead..
 	vector<Word> defaultWords = {
 		// Basic phrases
 		{"Hallo", "Hello", WordType::PHRASE, 1, 0, 0},
@@ -262,19 +260,21 @@ void WordDatabase::initializeDefaultWords() {
 
 void WordDatabase::addUserWord(const Word& word) {
 	lock_guard<mutex> guard(mtx);
-	// Prevent duplicate user words by German spelling
+
+	// prevent duplicate user words by German spelling (lambda)
 	auto it = find_if(userAddedWords.begin(), userAddedWords.end(), [&](const Word& w) {
 		return w.german == word.german;
 	});
-	if (it == userAddedWords.end()) {
+	if (it == userAddedWords.end())
 		userAddedWords.push_back(word);
-	} else {
+	else
 		cerr << "[Warning] Word '" << word.german << "' already exists in user words. Skipping.\n";
-	}
 }
 
 vector<Word> WordDatabase::getAllWords() const {
 	lock_guard<mutex> guard(mtx);
+
+	// create copy, do not pass reference
 	vector<Word> allWords = words;
 	allWords.insert(allWords.end(), userAddedWords.begin(), userAddedWords.end());
 	return allWords;

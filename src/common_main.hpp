@@ -1,5 +1,4 @@
 #pragma once
-
 #include "UI.hpp"
 #include "Utils.hpp"
 #include "WordDatabase.hpp"
