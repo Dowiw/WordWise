@@ -18,4 +18,9 @@ include_directories(src)
 
 add_executable(WordWise ${SOURCES})
 
-target_link_libraries(WordWise pthread)
+find_package(OpenMP)
+if(OpenMP_CXX_FOUND)
+	target_link_libraries(WordWise PUBLIC OpenMP::OpenMP_CXX pthread)
+else()
+	target_link_libraries(WordWise PUBLIC pthread)
+endif()

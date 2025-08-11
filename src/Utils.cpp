@@ -1,7 +1,6 @@
 #include "Utils.hpp" // map, string, vector, mutex, pthread
 #include <iostream>
 #include <unistd.h>
-#include <chrono>
 #include <omp.h>
 #ifdef _WIN32 // ****** thing for windws clearing
 #include <windows.h>
@@ -15,7 +14,6 @@ void* loadingAnimationThreadFunc(void* arg) {
 	processingFlag = 1;
 	for (int i = 0; i < seconds * 2 && processingFlag; ++i) {
 		cout << "\rProcessing" << string(i % 4, '.') << flush;
-		usleep(500000); // 500 ms, might remove once final
 	}
 	if (processingFlag) {
 		cout << "\rDone!          " << endl;
@@ -32,7 +30,6 @@ void runLoadingAnimation(int seconds) {
 
 void stopLoadingAnimation() {
 	processingFlag = 0;
-	usleep(100000); // 100 ms
 }
 
 void clearScreen() {
