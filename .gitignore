@@ -1,9 +1,9 @@
-# Ignore dev-defined files
+# Ignore user-defined files
 /.vscode
+/build
 /logs
 
 # Ignore build artifacts and user data
-/build/
 *.o
 *.obj
 *.exe

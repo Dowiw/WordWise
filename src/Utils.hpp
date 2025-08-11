@@ -1,5 +1,4 @@
 #pragma once
-#include <pthread.h>
 #include "WordDatabase.hpp" // map, string, vector, mutex
 
 struct SaveWordArgs {
@@ -7,7 +6,6 @@ struct SaveWordArgs {
 	bool wasCorrect;
 };
 
-void* saveWordThreadFunc(void* arg);
 void saveWordsInParallel(const vector<pair<string, bool>>& wordResults);
 
 void* loadingAnimationThreadFunc(void* arg);

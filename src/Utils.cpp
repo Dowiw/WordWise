@@ -2,16 +2,13 @@
 #include <iostream>
 #include <unistd.h>
 #include <chrono>
+#include <omp.h>
 #ifdef _WIN32 // ****** thing for windws clearing
 #include <windows.h>
 #endif
 using namespace std;
 
 volatile int processingFlag = 0;
-static pthread_t loadingThreadId;
-
-// mutex for thread-safe console output in saveWordThreadFunc
-extern pthread_mutex_t cout_mutex;
 
 void* loadingAnimationThreadFunc(void* arg) {
 	int seconds = *(int*)arg;
@@ -30,8 +27,7 @@ void* loadingAnimationThreadFunc(void* arg) {
 void runLoadingAnimation(int seconds) {
 	static int arg;
 	arg = seconds;
-	pthread_create(&loadingThreadId, nullptr, loadingAnimationThreadFunc, &arg);
-	pthread_detach(loadingThreadId);
+	loadingAnimationThreadFunc(&arg);
 }
 
 void stopLoadingAnimation() {
@@ -47,36 +43,10 @@ void clearScreen() {
 #endif
 }
 
-void* saveWordThreadFunc(void* arg) {
-	SaveWordArgs* args = (SaveWordArgs*)arg;
-	auto start = chrono::high_resolution_clock::now();
-
-	pthread_mutex_lock(&cout_mutex);
-	cout << "[Thread] Saving stats for word: '" << args->germanWord << "'...\n";
-	pthread_mutex_unlock(&cout_mutex);
-
-	wordDB.updateWordStats(args->germanWord, args->wasCorrect); // the main update method
-
-	auto end = chrono::high_resolution_clock::now();
-	double elapsed_ms = chrono::duration<double, milli>(end - start).count();
-
-	pthread_mutex_lock(&cout_mutex);
-	cout << "[Thread] Done saving: '" << args->germanWord << "' (" << elapsed_ms << " ms)\n";
-	pthread_mutex_unlock(&cout_mutex);
-
-	delete args;
-	return nullptr;
-}
-
 void saveWordsInParallel(const vector<pair<string, bool>>& wordResults) {
-	vector<pthread_t> threads(wordResults.size());
-
+	#pragma omp parallel for
 	for (size_t i = 0; i < wordResults.size(); ++i) {
-		SaveWordArgs* args = new SaveWordArgs{wordResults[i].first, wordResults[i].second};
-		pthread_create(&threads[i], nullptr, saveWordThreadFunc, args);
-	}
-	for (size_t i = 0; i < threads.size(); ++i) {
-		pthread_join(threads[i], nullptr);
+		wordDB.updateWordStats(wordResults[i].first, wordResults[i].second);
 	}
 	cout << "All word stats saved in parallel!\n";
 }
